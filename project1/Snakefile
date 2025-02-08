@@ -1,0 +1,30 @@
+SAMPLES = ["A", "B", "C"]
+
+rule all:
+    input:
+        "results/results.pdf"
+
+rule process_sequence_pair:
+    input:
+        seq1="data/{sample}_seq1.fasta",
+        seq2="data/{sample}_seq2.fasta"
+    output:
+        temp("results/{sample}_result.txt")
+    shell:
+        "python scripts/analyze.py {input.seq1} {input.seq2} > {output}"
+
+rule combine_results:
+    input:
+        expand("results/{sample}_result.txt", sample=SAMPLES)
+    output:
+        temp("results/results.md")
+    shell:
+        "cat {input} > {output}"
+
+rule convert_txt_to_pdf:
+    input:
+        "results/results.md"
+    output:
+        "results/results.pdf"
+    shell:
+        "pandoc {input} -o {output}"
