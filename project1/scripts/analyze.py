@@ -101,6 +101,9 @@ def count_alignments(n: int, m: int, memo: dict[tuple[int, int] : int]) -> int:
     return count
 
 
+QUESTION2_SEQ = "GGCCTAAAGGCGCCGGTCTTTCGTACCCCAAAATCTCGGCATTTTAAGATAAGTGAGTGTTGCGTTACACTAGCGATCTACCGCGTCTTATACTTAAGCGTATGCCCAGATCTGACTAATCGTGCCCCCGGATTAGACGGGCTTGATGGGAAAGAACAGCTCGTCTGTTTACGTATAAACAGAATCGCCTGGGTTCGC"
+
+
 def format_output(
     seq1: str, seq2: str, dp: np.ndarray, results: list, upper_bound: int
 ) -> str:
@@ -123,23 +126,38 @@ def format_output(
     output.append(separator)
 
     output.append("Alignment Statistics:\n")
-    output.append(f"Maximum alignment score: {int(dp[len(seq1), len(seq2)])}\n")
+    output.append(
+        f"{'[QUESTION 1] ' if seq1 == 'AATAAT' else '[QUESTION 2] ' if seq1 == QUESTION2_SEQ else ''}Maximum alignment score: {int(dp[len(seq1), len(seq2)])}\n"
+    )
     if upper_bound > 1e10:
         output.append(f"Total possible alignments: {upper_bound:.2e}\n")
     else:
         output.append(f"Total possible alignments: {upper_bound:,}\n")
-    output.append(f"Number of optimal alignments: {len(results):,}\n")
+    output.append(
+        f"{'[QUESTION 4] ' if seq1 == QUESTION2_SEQ else ''}Number of optimal alignments: {len(results):,}\n"
+    )
     output.append(separator)
 
     align1, align2 = results[random.randint(0, len(results) - 1)]
-    output.append("Random Optimal Alignment:\n")
+    output.append(
+        f"{'[QUESTION 3] ' if seq1 == QUESTION2_SEQ else ''} Random Optimal Alignment:\n"
+    )
 
-    output.append(
-        f"\nSeq1: {align1[:chunk_size]}{'...' if len(align1) > chunk_size else ''}\n"
-    )
-    output.append(
-        f"Seq2: {align2[:chunk_size]}{'...' if len(align2) > chunk_size else ''}\n"
-    )
+    output.append("Seq1:\n")
+    align1_formatted = [
+        char if idx % chunk_size or idx == 0 else char + "\n"
+        for idx, char in enumerate(align1)
+    ]
+    output.append("".join(align1_formatted))
+
+    output.append("\nSeq2:\n")
+    align2_formatted = [
+        char if idx % chunk_size or idx == 0 else char + "\n"
+        for idx, char in enumerate(align2)
+    ]
+    output.append("".join(align2_formatted))
+
+    output.append("\n")
     output.append(separator)
     output.append("```\n")
     output.append("\pagebreak")
