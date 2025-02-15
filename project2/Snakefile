@@ -1,0 +1,46 @@
+rule all:
+    input:
+        "results/report.pdf"
+
+rule run_benchmark:
+    output:
+        figure="results/benchmark/alignment_performance.png"
+    conda:
+        "environment.yml"
+    shell:
+        "python scripts/benchmark.py --output-path {output.figure}"
+
+rule generate_answers:
+    input:
+        sequences="data/sequences.fasta"
+    output:
+        answers="sections/test_answers.md"
+    conda:
+        "environment.yml"
+    shell:
+        "python scripts/answers.py {input.sequences} > {output.answers}"
+
+rule merge_report:
+    input:
+        benchmark="results/benchmark/alignment_performance.png",
+        answers="sections/test_answers.md",
+        sections=["sections/introduction.md",
+                 "sections/methods.md",
+                 "sections/test.md",
+                 "sections/test_answers.md",
+                 "sections/experiments.md"]
+    output:
+        report="results/report.md"
+    shell:
+        """
+        cat {input.sections} > {output.report}
+        echo -e "\n![Benchmark Results]({input.benchmark})\n" >> {output.report}
+        """
+
+rule convert_txt_to_pdf:
+    input:
+        "results/report.md"
+    output:
+        "results/report.pdf"
+    shell:
+        "pandoc {input} -o {output}"

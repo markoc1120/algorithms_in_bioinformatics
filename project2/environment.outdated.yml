@@ -1,4 +1,4 @@
-name: aib_ta
+name: alignment_plus
 channels:
   - defaults
   - https://repo.anaconda.com/pkgs/main

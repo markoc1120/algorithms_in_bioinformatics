@@ -1,3 +1,9 @@
 .snakemake
 results/
 .DS_Store
+__pycache__/*
+__pycache__
+__init__.py
+.pytest_cache
+.pytest_cache/*
+alignment_plus.egg-info
