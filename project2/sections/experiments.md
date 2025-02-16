@@ -1,3 +1,3 @@
 ## Experiments
 
-As you can see below there is the plot
+We have only created one figure which can be seen below [*Figure 1*]. This clearly shows us that both of our implementation follows a [$O(n^2)$] manner, although the affine cost calculation seems to be faster than the linear cost, and this is somewhat counterintuitive. Becuse in the affine algorithm besides the alignment cost matrixes we have two more additional ones (D and I), so filling them out require us more operations in theory. The reasoning behind this discrepancy might be the fact that we utilize more numpy operations in the linear implementation, which puts a bottleneck to that algorithm. The figure only shows the cost calculation, since our backtracking algorithms collect all the possible alignments, thus they have an exponential time complexity and with randomly generated sequences it would take so some time to finish, therefore we decided not to analyze it.

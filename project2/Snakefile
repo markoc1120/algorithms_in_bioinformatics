@@ -10,7 +10,15 @@ rule run_benchmark:
     shell:
         "python scripts/benchmark.py --output-path {output.figure}"
 
-rule generate_answers:
+rule generate_benchmark_section:
+    input:
+        "results/benchmark/alignment_performance.png"
+    output:
+        "sections/benchmark.md"
+    shell:
+        'echo -e "![Benchmark Results]({input})\n" > {output}'
+
+rule generate_answers_section:
     input:
         sequences="data/sequences.fasta"
     output:
@@ -22,25 +30,15 @@ rule generate_answers:
 
 rule merge_report:
     input:
-        benchmark="results/benchmark/alignment_performance.png",
+        benchmark="sections/benchmark.md",
         answers="sections/test_answers.md",
         sections=["sections/introduction.md",
                  "sections/methods.md",
                  "sections/test.md",
                  "sections/test_answers.md",
-                 "sections/experiments.md"]
+                 "sections/experiments.md",
+                 "sections/benchmark.md"]
     output:
-        report="results/report.md"
+        report="results/report.pdf"
     shell:
-        """
-        cat {input.sections} > {output.report}
-        echo -e "\n![Benchmark Results]({input.benchmark})\n" >> {output.report}
-        """
-
-rule convert_txt_to_pdf:
-    input:
-        "results/report.md"
-    output:
-        "results/report.pdf"
-    shell:
-        "pandoc {input} -o {output}"
+        "pandoc {input.sections} -o {output.report}"

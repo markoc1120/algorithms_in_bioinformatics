@@ -1,5 +1,5 @@
-# Sequence Alignment Analysiss
-## Question 1
+## Sequence Alignment Analysiss
+### Question 1
 
 Linear gap cost alignment (g(k)=5*k):
 
@@ -19,7 +19,7 @@ Aligned sequence 2 (105 bp):
 gccataag-caccacattcccttatactggagatcct-cca-tacagcca
 tggaa
 ```
-## Question 2
+### Question 2
 
 Affine gap cost alignment (g(k)=5+5k):
 
@@ -39,7 +39,7 @@ Aligned sequence 2 (103 bp):
 ccataagcaccacattcccttatactggagatcctcca--tacagccatg
 gaa
 ```
-## Question 3
+### Question 3
 
 Score matrix for linear gap cost (g(k)=5k):
 
@@ -52,7 +52,7 @@ seq4   202   223   219     0   210
 seq5   209   220   205   210     0
 ```
 
-## Question 4
+### Question 4
 
 Score matrix for affine gap cost (g(k)=5+5k):
 

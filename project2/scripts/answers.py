@@ -27,7 +27,7 @@ def format_questions(sequences: dict) -> str:
     affine_cost, affine_alignments = pairwise_alignment_affine(seq1, seq2)
 
     output = []
-    output.append("## Question 1\n")
+    output.append("### Question 1\n")
     output.append(f"Linear gap cost alignment (g(k)={GAPOPEN}*k):\n")
     output.append(f"Optimal score: {linear_cost[-1, -1]}\n")
     output.append("Optimal alignment:\n")
@@ -39,7 +39,7 @@ def format_questions(sequences: dict) -> str:
         f"```\nAligned sequence 2 ({len(align2)} bp):\n{format_seq(align2)}\n```"
     )
 
-    output.append("## Question 2\n")
+    output.append("### Question 2\n")
     output.append(f"Affine gap cost alignment (g(k)={GAPOPEN}+{GAPEXTEND}k):\n")
     output.append(f"Optimal score: {affine_cost[-1, -1]}\n")
     output.append("Optimal alignment:\n")
@@ -51,12 +51,12 @@ def format_questions(sequences: dict) -> str:
         f"```\nAligned sequence 2 ({len(align2)} bp):\n{format_seq(align2)}\n```"
     )
 
-    output.append("## Question 3\n")
+    output.append("### Question 3\n")
     output.append(f"Score matrix for linear gap cost (g(k)={GAPOPEN}k):\n")
     linear_matrix = create_score_matrix(sequences, "linear")
     output.append(f"```\n{linear_matrix}\n```\n")
 
-    output.append("## Question 4\n")
+    output.append("### Question 4\n")
     output.append(f"Score matrix for affine gap cost (g(k)={GAPOPEN}+{GAPEXTEND}k):\n")
     affine_matrix = create_score_matrix(sequences, "affine")
     output.append(f"```\n{affine_matrix}\n```\n")
@@ -83,7 +83,7 @@ def get_formatted_output(sequences_path: str) -> str:
     sequences = read_sequences(sequences_path)
 
     output = []
-    output.append("# Sequence Alignment Analysiss\n")
+    output.append("## Sequence Alignment Analysiss\n")
     output.append(format_questions(sequences))
 
     return "".join(output)
