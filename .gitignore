@@ -7,3 +7,5 @@ __pycache__
 .pytest_cache/*
 alignment_plus.egg-info
 project4/result/
+.RData
+.Rhistory

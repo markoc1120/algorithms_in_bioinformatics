@@ -27,8 +27,17 @@ func main() {
 	}
 
 	quickTreePath := "./quicktree"
+	resultPath := "result"
 	timeLogs := [][]string{}
 	resultChannel := make(chan result)
+
+	if _, err := os.Stat(resultPath); os.IsNotExist(err) {
+		err := os.Mkdir(resultPath, 0777)
+		if err != nil {
+			fmt.Printf("Couldn't create 'result' folder %v\n", err)
+			os.Exit(1)
+		}
+	}
 	for _, phylip := range phylips {
 		go func(p utils.Phylip) {
 			fmt.Printf("Running NeiSaitou: %s\n", p.Filename)
