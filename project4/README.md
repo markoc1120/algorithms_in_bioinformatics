@@ -1,13 +1,3 @@
----
-title: "NJ tree construction"
-output:
-  pdf_document:
-    keep_tex: true
-    fig_caption: true
-    latex_engine: xelatex
-    extra_dependencies: ["float"]
----
-
 # NJ tree construction
 
 ## Introduction
