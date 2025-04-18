@@ -6,6 +6,7 @@ from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from scripts.global_affine import calc_cost_affine
 from scripts.global_linear import calc_cost_linear
 
@@ -62,7 +63,8 @@ def plot_results(
 
     plt.plot(seq_lengths, [linear_fit(n) for n in seq_lengths], "b--", alpha=0.3)
     plt.plot(seq_lengths, [affine_fit(n) for n in seq_lengths], "r--", alpha=0.3)
-
+    plt.xscale("log")
+    plt.yscale("log")
     plt.xlabel("Sequence Length")
     plt.ylabel("Time (seconds)")
     plt.title("Performance Comparison: Linear vs Affine Gap Penalties")
