@@ -1,3 +1,6 @@
 [submodule "project3"]
 	path = project3
 	url = https://github.com/markoc1120/alignment_plus
+[submodule "project4"]
+	path = project4
+	url = https://github.com/markoc1120/nj_algorithm
